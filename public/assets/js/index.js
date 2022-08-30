@@ -48,3 +48,55 @@ var renderActiveNote = function () {
     $noteText.val("");
   }
 };
+
+// Get the note data from the inputs, save it to the db and update the view
+var handleNoteSave = function () {
+  var newNote = {
+    title: $noteTitle.val(),
+    text: $noteText.val(),
+  };
+
+  saveNote(newNote).then(function (data) {
+    getAndRenderNotes();
+    renderActiveNote();
+  });
+};
+
+// Delete the clicked note
+var handleNoteDelete = function (event) {
+  // prevents the click listener for the list from being called when the button inside of it is clicked
+  event.stopPropagation();
+
+  var note = $(this).parent(".list-group-item").data();
+
+  if (activeNote.id === note.id) {
+    activeNote = {};
+  }
+
+  deleteNote(note.id).then(function () {
+    getAndRenderNotes();
+    renderActiveNote();
+  });
+};
+
+// Sets the activeNote and displays it
+var handleNoteView = function () {
+  activeNote = $(this).data();
+  renderActiveNote();
+};
+
+// Sets the activeNote to and empty object and allows the user to enter a new note
+var handleNewNoteView = function () {
+  activeNote = {};
+  renderActiveNote();
+};
+
+// If a note's title or text are empty, hide the save button
+// Or else show it
+var handleRenderSaveBtn = function () {
+  if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
+    $saveNoteBtn.hide();
+  } else {
+    $saveNoteBtn.show();
+  }
+};
