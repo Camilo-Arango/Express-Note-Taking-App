@@ -8,18 +8,43 @@ var $noteList = $(".list-container .list-group");
 var activeNote = {};
 
 // A function for getting all notes from the db
-var getNotes = function() {
+var getNotes = function () {
   return $.ajax({
     url: "/api/notes",
-    method: "GET"
+    method: "GET",
   });
 };
 
 // A function for saving a note to the db
-var saveNote = function(note) {
+var saveNote = function (note) {
   return $.ajax({
     url: "/api/notes",
     data: note,
-    method: "POST"
+    method: "POST",
   });
+};
+
+// A function for deleting a note from the db
+var deleteNote = function (id) {
+  return $.ajax({
+    url: "api/notes/" + id,
+    method: "DELETE",
+  });
+};
+
+// If there is an activeNote, display it, otherwise render empty inputs
+var renderActiveNote = function () {
+  $saveNoteBtn.hide();
+
+  if (activeNote.id) {
+    $noteTitle.attr("readonly", true);
+    $noteText.attr("readonly", true);
+    $noteTitle.val(activeNote.title);
+    $noteText.val(activeNote.text);
+  } else {
+    $noteTitle.attr("readonly", false);
+    $noteText.attr("readonly", false);
+    $noteTitle.val("");
+    $noteText.val("");
+  }
 };
