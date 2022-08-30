@@ -6,3 +6,5 @@ We were given starter code for this so the only thing we needed to do is install
 
 My biggest issue was that the page wasn't styling properly and then I realized I forgot I named the style sheet style.css instead of styles.css because I created each file individually and copied the starter code manually rather than copying the files from the class repo into my git folder.
 
+![AppScreenshot](https://github.com/Camilo-Arango/Express-Note-Taking-App/blob/main/note%20taking%20app%20ss.jpg?raw=true)
+
